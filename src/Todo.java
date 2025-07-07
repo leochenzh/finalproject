@@ -32,7 +32,24 @@ public class Todo {
         }
     }
 
-    public void delete(String content){
+    public void delete(int index){
+        if (first == null || index < 1){
+            return;
+        }
+        if (index == 1){
+            first = first.next;
+            return;
+        }
+        toDoItem current = first;
+        int count = 1;
+        while (current.next != null && count < index -1){
+            current = current.next;
+            count ++;
+        }
+        if (current.next != null){
+            current.next = current.next.next;
+        }
+
 
     }
 
