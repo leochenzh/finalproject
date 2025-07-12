@@ -1,33 +1,23 @@
-public class toDoItem implements Comparable<toDoItem>{
-    public String content;
-    public String deadline;
-    public String urgency;
-    public boolean isDone;
-    public toDoItem next;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public toDoItem(String content, String deadline, String urgency){
-        this.content = content;
+public class toDoItem {
+    String task;
+    String deadline;
+    String urgency;
+    boolean isDone;
+    toDoItem next;
+
+    public toDoItem(String task, String deadline, String urgency) {
+        this.task = task;
         this.deadline = deadline;
         this.urgency = urgency;
         this.isDone = false;
         this.next = null;
     }
 
-    @Override
-    public int compareTo(toDoItem other) {
-        if(this.isDone && !other.isDone) {
-            return 1;
-        }
-        if (!this.isDone && other.isDone) {
-            return -1;
-        }
-        return urgencyValue(this.urgency) - urgencyValue(other.urgency);
-    }
-
-    private int urgencyValue(String urgency) {
-        if ("red".equals(urgency)) return 1;
-        if ("yellow".equals(urgency)) return 2;
-        if ("green".equals(urgency)) return 3;
-        return 4;
+    public LocalDate getDeadlineDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        return LocalDate.parse(this.deadline, formatter);
     }
 }
